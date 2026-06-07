@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sae-interp"
+version = "0.1.0"
+description = "Sparse-autoencoder interpretability on GPT-2-small: train, analyse and causally validate features."
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+# Runtime deps live in requirements.txt (and requirements.lock.txt for exact pins);
+# we keep this list minimal so `pip install -e .` is fast and the heavy ML stack is
+# installed explicitly via requirements.txt.
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"

@@ -1,0 +1,63 @@
+# ---------------------------------------------------------------------------
+# Configuration for the GPT-2-small SAE interpretability project.
+#
+# Every script reads this file via `src/sae_interp/config.py`, which validates
+# it into a typed dataclass. Edit values here rather than hardcoding in scripts.
+#
+# The defaults are deliberately *small* so iterations are fast on a laptop.
+# Scale d_sae / corpus size / steps up once the pipeline works (see comments).
+# ---------------------------------------------------------------------------
+
+# --- Model & hook point ---------------------------------------------------
+model:
+  name: "gpt2"                  # TransformerLens name for GPT-2-small (124M, d_model=768, 12 layers)
+  # Mid-layer residual stream. The pretrained SAE we load in Phases 1-2 was
+  # trained at this exact site, so the hook name must match the SAE's metadata.
+  # `hook_resid_pre` = residual stream *entering* the block (verify name in the
+  # installed TransformerLens; it prints all hooks via model.hook_dict).
+  hook_name: "blocks.8.hook_resid_pre"
+  layer: 8                      # block index, kept in sync with hook_name for convenience
+  d_model: 768                  # residual stream width for GPT-2-small (don't change for gpt2)
+
+# --- Pretrained SAE (Phases 1-2, loaded via SAELens) ----------------------
+# These identifiers come from the SAELens pretrained-SAE directory and MUST be
+# verified against the installed sae-lens version (the verify script prints the
+# directory). `gpt2-small-res-jb` is Joseph Bloom's GPT-2-small residual set.
+pretrained_sae:
+  release: "gpt2-small-res-jb"
+  sae_id: "blocks.8.hook_resid_pre"
+
+# --- Custom SAE architecture (Phase 3, our own implementation) ------------
+sae:
+  expansion_factor: 4           # d_sae = expansion_factor * d_model (4 -> 3072). Scale to 8-16 later.
+  l1_coeff: 5.0e-4              # lambda: sparsity penalty weight. Swept in Phase 4 to trace the frontier.
+  init_b_dec_to_mean: true      # initialise decoder bias to the dataset-mean activation (standard trick)
+
+# --- Training (Phase 3) ---------------------------------------------------
+train:
+  lr: 4.0e-4
+  steps: 20000                  # optimiser steps. Start ~2k for a smoke run, scale to 20k-50k.
+  batch_size: 4096              # activation vectors per step (NOT sequences)
+  seed: 0
+  log_every: 100
+  ckpt_every: 2000
+  resample_dead: true           # periodically re-initialise dead features (neuron resampling)
+  dead_feature_window: 2000     # a feature is "dead" if it hasn't fired in this many steps
+
+# --- Activation harvesting (Phases 1, 3) ----------------------------------
+data:
+  dataset: "NeelNanda/pile-10k"  # small corpus made for this kind of work (~tens of MB)
+  ctx_len: 128                   # tokens per sequence
+  n_sequences: 2000              # sequences to harvest for Phase 1 exploration (a few k is plenty)
+  cache_dir: "activation_cache"  # on-disk activation cache (gitignored)
+  store_dtype: "float16"         # halve disk/RAM for cached activations
+
+# --- Metrics / frontier sweep (Phase 4) -----------------------------------
+metrics:
+  # lambda values to sweep when tracing the L0 vs variance-explained frontier.
+  l1_sweep: [1.0e-4, 2.0e-4, 5.0e-4, 1.0e-3, 2.0e-3, 5.0e-3]
+  eval_batches: 50               # held-out batches for CE-loss-recovered / variance-explained
+
+# --- Misc -----------------------------------------------------------------
+seed: 0                          # global seed (also set per-module)
+results_dir: "results"

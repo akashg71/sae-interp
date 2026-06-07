@@ -1,0 +1,42 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+
+# --- Secrets / local config ---
+.env
+*.local
+
+# --- Experiment tracking ---
+wandb/
+
+# --- Caches & large artifacts (never commit these) ---
+# Activation dumps, SAE checkpoints, HF/dataset caches, plots regenerated from code.
+*.pt
+*.pth
+*.safetensors
+*.npy
+*.npz
+cache/
+activation_cache/
+checkpoints/
+results/checkpoints/
+.cache/
+
+# Keep the results/ dir tree (figures, features.md) but ignore heavyweight binaries.
+# Figures are small PNGs and ARE committed so the writeup renders on GitHub.
+!results/figures/.gitkeep
+
+# --- OS / editor noise ---
+.DS_Store
+.idea/
+.vscode/

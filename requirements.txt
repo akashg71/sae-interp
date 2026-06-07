@@ -1,0 +1,22 @@
+# Core ML / interpretability stack.
+# Versions are intentionally left for pip to resolve on first install; after a
+# successful install we pin exact versions with `pip freeze > requirements.lock.txt`
+# (see RUNBOOK) so the environment is reproducible without over-constraining here.
+
+torch
+transformer-lens
+sae-lens
+transformers
+datasets
+einops
+numpy
+pandas
+matplotlib
+tqdm
+pyyaml
+python-dotenv
+truststore        # use the OS trust store for SSL (needed behind corporate MITM proxies, e.g. Netskope)
+
+# --- Optional (install on demand) ---
+# wandb          # training logs (Phase 3+); enabled behind the --wandb flag
+# streamlit      # feature browser UI in app/ (stretch goal)
