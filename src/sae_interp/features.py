@@ -15,8 +15,8 @@ Three complementary tools:
    unembedding (W_U) to see which output tokens it most increases. A quick, cheap
    hint at meaning that complements the max-activating examples.
 
-Works with both our custom SAE and a SAELens SAE (only needs ``.encode`` and a
-``W_dec`` of shape (d_model, d_sae)).
+Works with both our custom SAE (W_dec: d_model × d_sae) and a SAELens SAE
+(W_dec: d_sae × d_model).
 """
 
 from __future__ import annotations
@@ -125,14 +125,19 @@ def feature_density(feature_acts: torch.Tensor, feature_col: int) -> float:
 def logit_lens_tokens(model, sae, feature_index: int, top_k: int = 10) -> list[tuple[str, float]]:
     """Project a feature's decoder direction through the unembedding.
 
-    ``W_dec[:, j]`` is the direction this feature writes into the residual stream.
+    The feature's decoder direction is extracted from W_dec, handling both (d_model, d_sae) and (d_sae, d_model) layouts.
     Pushing it through ``W_U`` (and the final layernorm's scale, approximately) tells
     us which vocabulary logits it most increases — a cheap semantic hint.
 
     Returns the top-k (token_string, logit_contribution) pairs.
     """
-    # W_dec is (d_model, d_sae) for both our SAE and SAELens SAEs.
-    direction = sae.W_dec[:, feature_index].to(torch.float32)  # (d_model,)
+    # Our custom SAE: W_dec is (d_model, d_sae) — feature j is column j.
+    # SAELens SAE:    W_dec is (d_sae, d_model)  — feature j is row j.
+    W = sae.W_dec
+    if W.shape[0] < W.shape[1]:  # (d_model, d_sae): our custom SAE
+        direction = W[:, feature_index].to(torch.float32)
+    else:                         # (d_sae, d_model): SAELens SAE
+        direction = W[feature_index].to(torch.float32)
     # Approximate logit-lens: direction @ W_U. (We skip the final LN scale; this is a
     # hint, not an exact attribution.) W_U is (d_model, d_vocab) in TransformerLens.
     W_U = model.W_U.to(torch.float32)

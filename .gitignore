@@ -40,3 +40,6 @@ results/checkpoints/
 .DS_Store
 .idea/
 .vscode/
+
+# --- Accidental nested clone ---
+sae-interp/

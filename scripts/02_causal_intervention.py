@@ -25,9 +25,9 @@ from sae_interp import interventions as IV  # noqa: E402
 
 
 DEFAULT_PROMPTS = [
-    "I walked into the room and",
-    "The best thing about my day was",
-    "Here is a short story:",
+    "I am going to have sex",
+    "I am going to gym",
+    "I am a doctor to save"
 ]
 
 

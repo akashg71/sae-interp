@@ -35,8 +35,18 @@ class InterventionResult:
 
 
 def _feature_direction(sae, feature_index: int, device) -> torch.Tensor:
-    """Unit-ish decoder direction for the feature (column of W_dec), shape (d_model,)."""
-    return sae.W_dec[:, feature_index].to(torch.float32).to(device)
+    """Decoder direction for the feature, shape (d_model,).
+
+    Handles both layouts:
+      - Our custom SAE: W_dec is (d_model, d_sae) → column j
+      - SAELens SAE:    W_dec is (d_sae, d_model)  → row j
+    """
+    W = sae.W_dec
+    if W.shape[0] < W.shape[1]:   # (d_model, d_sae): custom SAE
+        direction = W[:, feature_index]
+    else:                          # (d_sae, d_model): SAELens SAE
+        direction = W[feature_index]
+    return direction.to(torch.float32).to(device)
 
 
 def make_ablation_hook(sae, feature_index: int):
@@ -51,7 +61,7 @@ def make_ablation_hook(sae, feature_index: int):
         flat = act.reshape(-1, shape[-1]).to(torch.float32)
         f = sae.encode(flat)                                  # (n, d_sae)
         f_j = f[:, feature_index : feature_index + 1]         # (n, 1)
-        direction = sae.W_dec[:, feature_index].to(torch.float32)  # (d_model,)
+        direction = _feature_direction(sae, feature_index, flat.device)  # (d_model,)
         edited = flat - f_j * direction                       # remove its contribution
         return edited.reshape(shape).to(act.dtype)
 
@@ -66,7 +76,7 @@ def make_clamp_hook(sae, feature_index: int, alpha: float):
     feature's usual activation scale — sweep it.
     """
     def hook(act, hook):  # noqa: A002
-        direction = sae.W_dec[:, feature_index].to(torch.float32).to(act.device)
+        direction = _feature_direction(sae, feature_index, act.device)
         return (act.to(torch.float32) + alpha * direction).to(act.dtype)
 
     return hook
