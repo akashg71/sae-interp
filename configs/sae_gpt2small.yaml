@@ -29,8 +29,11 @@ pretrained_sae:
 
 # --- Custom SAE architecture (Phase 3, our own implementation) ------------
 sae:
-  expansion_factor: 4           # d_sae = expansion_factor * d_model (4 -> 3072). Scale to 8-16 later.
-  l1_coeff: 5.0e-4              # lambda: sparsity penalty weight. Swept in Phase 4 to trace the frontier.
+  expansion_factor: 8           # d_sae = expansion_factor * d_model (8 -> 6144). 4x was too small — not enough
+                                 # room for features to specialise; L0 never dropped below ~1200. 8x gives the
+                                 # optimizer room to be sparse while still reconstructing well.
+  l1_coeff: 4.0e-3              # lambda: sparsity penalty weight. 5e-4 was too weak; raised to 4e-3 after
+                                 # empirical observation that L0 never converged below ~1500 at 4x expansion.
   init_b_dec_to_mean: true      # initialise decoder bias to the dataset-mean activation (standard trick)
 
 # --- Training (Phase 3) ---------------------------------------------------
