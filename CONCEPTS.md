@@ -306,7 +306,24 @@ never activates, never gets gradient signal, and stays dead permanently.
 3. Reset Adam's momentum for that feature (stale momentum from being-dead would fight learning)
 4. Give it a fresh window to prove itself
 
-In our 20k run: 12 features were resampled at step 20000. Healthy.
+**What unstable resampling looks like (8× run, 20k steps):**
+```
+step 10000: resampled   18 features → normal
+step 12000: resampled  104 features → dead_fraction jumps to 15.6%
+step 14000: resampled  960 features → L0 crashes to 895 briefly, recovers to ~1400
+step 16000: resampled  533 features → L0 crashes to 919 briefly, recovers to ~1375
+step 18000: resampled  831 features → L0 crashes to 692 briefly, recovers to ~1210
+```
+Root cause: `dead_feature_window=2000` is too short for 6144 features. Features are given
+only 2000 steps to prove themselves, many fail, and they die in waves. This creates
+massive "shock" events that temporarily crash L0 but don't produce a stable sparse solution.
+
+**The staircase pattern:** Each shock crashes L0 to a temporarily low value, which then
+climbs back to a new, lower equilibrium. The equilibria over time: 1515 → 1450 → 1400 → 1375 → 1210.
+The run was still descending at step 20000.
+
+**Fix:** `dead_feature_window: 5000` — gives features 2.5× more time, smaller resampling
+batches, less chaos per event.
 
 ---
 
@@ -402,9 +419,9 @@ it changed "girl" → "woman" (less specifically vulnerable).
 | 0 — Smoke test | ✅ Done | Stack confirmed working, GPT-2 + SAE loaded |
 | 1 — Feature exploration | ✅ Done | 5 features labelled; #9577 most interesting |
 | 2 — Causal validation | ✅ Done | #9577 proven causal; #13481 mislabelled (corrected) |
-| 3 — Train custom SAE | 🔄 Rerunning | 4× expansion failed (L0=1524); now trying 8× |
+| 3 — Train custom SAE | 🔄 Improving | 8× (L0=1210, VE=1.0); resampling unstable (window too small); rerunning with dead_window=5000, 40k steps |
 | 4 — Frontier evaluation | ⏳ Pending | L0 vs VE sweep across λ values |
 
 ---
 
-*This file is updated as new concepts come up. Last updated: Phase 3 rerun with 8× expansion.*
+*This file is updated as new concepts come up. Last updated: 8× run analysis — resampling staircase dynamics, dead_feature_window fix.*

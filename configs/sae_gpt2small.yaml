@@ -39,13 +39,16 @@ sae:
 # --- Training (Phase 3) ---------------------------------------------------
 train:
   lr: 4.0e-4
-  steps: 20000                  # optimiser steps. Start ~2k for a smoke run, scale to 20k-50k.
+  steps: 40000                  # 20k was still descending at the end — more steps needed.
   batch_size: 4096              # activation vectors per step (NOT sequences)
   seed: 0
   log_every: 100
   ckpt_every: 2000
   resample_dead: true           # periodically re-initialise dead features (neuron resampling)
-  dead_feature_window: 2000     # a feature is "dead" if it hasn't fired in this many steps
+  dead_feature_window: 5000     # a feature is "dead" if it hasn't fired in this many steps.
+                                 # 2000 was too aggressive for 6144 features — caused massive resampling
+                                 # events (960 features at step 14k, 831 at step 18k) that destroyed
+                                 # training stability. 5000 gives features more time to find their role.
 
 # --- Activation harvesting (Phases 1, 3) ----------------------------------
 data:
