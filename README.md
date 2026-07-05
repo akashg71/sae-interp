@@ -6,11 +6,14 @@ validate** them by clamping/ablating those features and watching the model's beh
 change. The deliverable is a clean repo + a writeup with real metrics (the
 sparsity↔reconstruction frontier and a causal intervention result).
 
-> **Status:** scaffold complete; core code implemented and unit-checked offline.
-> The Phase 0 smoke test (which downloads GPT-2 + a pretrained SAE) has **not** been
-> run yet because Hugging Face is blocked on the build network — see
-> [Network / corporate proxy](#network--corporate-proxy-important) below. Everything
-> that doesn't need the network has been verified to work.
+> **Status:** Phases 0–4 complete, run on **Google Colab** (Hugging Face is blocked on
+> the corporate network this was scaffolded on — see
+> [Network / corporate proxy](#network--corporate-proxy-important) below).
+> Phase 1 found interpretable features (`results/features.md`); Phase 2 wired up causal
+> clamp/ablate; Phase 3 trained a custom SAE (d_sae=6144, λ=4e-3, 40k steps →
+> variance-explained ≈ 1.00, L0 ≈ 1161); Phase 4 swept λ for the frontier.
+> **Remaining:** Phase 5 writeup, and driving sparsity down — L0 is currently high
+> (see [Results](#results-phases-14) for the honest read).
 
 ---
 
@@ -120,6 +123,45 @@ python scripts/03_train_sae.py --steps 2000 --sanity    # small local run; full 
 python scripts/04_eval_frontier.py --steps 3000 --ce    # headline frontier plot
 streamlit run app/feature_browser.py                    # optional UI
 ```
+
+---
+
+## Results (Phases 1–4)
+
+All runs were on a Colab T4/L4 GPU. Raw logs are in `colab-output/`.
+
+**Phase 1 — interpretable features (pretrained SAE).** Harvested layer-8 activations
+over 2,000 documents, pushed them through the pretrained `gpt2-small-res-jb` SAE, and
+read the max-activating examples. A few clearly interpretable features (full table in
+`results/features.md`):
+
+| Feature | Density | Concept (label) |
+|--------:|--------:|-----------------|
+| 7137 | 3.2% | code — XML tags / config-file syntax |
+| 13481 | 1.5% | frequency / necessity language ("usually", "it may be necessary") |
+| 16836 | 1.1% | pivot / consequence words ("so", "therefore", "thus") |
+| 488 | 1.1% | code structure — imports, headers, indentation |
+| 9577 | 1.4% | confined / vulnerable people (patients, prisoners, detainees) |
+
+**Phase 2 — causal validation.** `clamp` (force a feature high) and `ablate` (remove its
+contribution) via TransformerLens hooks at the SAE layer, measuring the effect on
+generations and next-token logits. See `scripts/02_causal_intervention.py`.
+
+**Phase 3 — our own SAE.** Trained the custom L1 ReLU SAE (`src/sae_interp/sae.py`):
+d_sae = 6144 (8× expansion), λ = 4e-3, 40k steps over 256k cached activations.
+Final: **variance-explained ≈ 1.00**, **L0 ≈ 1161**, dead ≈ 13.6%. Dead-feature
+resampling fires periodically (visible as the recon spikes in the log).
+
+**Phase 4 — the frontier.** Swept λ ∈ [1e-4 … 5e-3]. At 3k steps/λ, L0 barely moved
+(1679 → 1673): the L1 penalty hadn't begun to bite yet — **sparsity needs sustained
+training, not just a bigger λ** (the 40k-step Phase 3 run reached L0 ≈ 1161). Plot:
+`results/figures/frontier.png`.
+
+> **Honest limitation (for the writeup).** The SAE reconstructs almost perfectly
+> (VE ≈ 1.00) but is **not yet sparse** — L0 ≈ 1161 of 6144 features fire per token,
+> where a strong SAE targets ~20–100. The headline so far is *"great reconstruction,
+> weak sparsity."* Next experiments: much longer training at higher λ, and/or a
+> TopK / JumpReLU variant that enforces sparsity directly.
 
 ---
 
