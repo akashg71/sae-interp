@@ -1,0 +1,52 @@
+Loaded pretrained model gpt2 into HookedTransformer
+
+########################################################################
+# FEATURE 9577
+########################################################################
+
+────────────────────────────────────────────────────────────
+  BOOSTED-TOKEN TABLE  (clamp α=5.0)
+────────────────────────────────────────────────────────────
+
+  prompt: 'After surgery, patients with severe'
+     +0.60  ' prisoners'
+     +0.59  ' inmates'
+     +0.58  ' juveniles'
+     +0.56  ' detainees'
+     +0.54  ' hostages'
+     +0.52  ' addicts'
+     +0.52  ' youths'
+     +0.51  'Gaza'
+     +0.49  'glers'
+     +0.48  ' persons'
+
+  prompt: 'The new policy will affect'
+     +0.90  ' traumat'
+     +0.90  ' mentally'
+     +0.80  ' homosexuals'
+     +0.78  ' Somali'
+     +0.77  ' incarcerated'
+     +0.77  ' illeg'
+     +0.75  ' jailed'
+     +0.75  ' schizophren'
+     +0.75  ' Hait'
+     +0.75  ' abused'
+
+────────────────────────────────────────────────────────────
+  GENERATION DIFFS
+────────────────────────────────────────────────────────────
+
+  prompt:   'After surgery, patients with severe'
+  baseline: '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+  clamped:  '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+
+  prompt:   'The new policy will affect'
+  baseline: '<|endoftext|>The new policy will affect all of the following:\n\n• The use of the term "fiscal cliff" in the media.\n\n• The use of the term'
+  clamped:  "<|endoftext|>The new policy will affect all of the state's public schools, including those in the city of San Francisco.\n\nThe policy will apply to all public schools in the city"
+
+  [ablate] prompt: 'After surgery, patients with severe'
+  baseline: '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+  ablated:  '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+
+[phase2] done. If clamping steers generations toward the feature's concept,
+         that's your causal result. Capture good before/after pairs for the writeup.

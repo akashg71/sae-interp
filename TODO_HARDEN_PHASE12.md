@@ -29,7 +29,7 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
   *Acceptance:* a table of prompt → top-10 boosted tokens. Does the same concept appear across
   domains, or only in some?
 
-- [ ] **A2 — Alpha sweep.** For 2–3 prompts above, sweep alpha (e.g. 5, 10, 20, 40). Note where the
+- [x] **A2 — Alpha sweep.** For 2–3 prompts above, sweep alpha (e.g. 5, 10, 20, 40). Note where the
   concept first appears, where it stabilises, and where it degrades into noise. Does the effect hold
   at low alpha (in-distribution), or only at alpha=40 (possibly off-distribution)?
 

@@ -1,0 +1,52 @@
+Loaded pretrained model gpt2 into HookedTransformer
+
+########################################################################
+# FEATURE 9577
+########################################################################
+
+────────────────────────────────────────────────────────────
+  BOOSTED-TOKEN TABLE  (clamp α=10.0)
+────────────────────────────────────────────────────────────
+
+  prompt: 'After surgery, patients with severe'
+     +1.34  ' prisoners'
+     +1.33  ' inmates'
+     +1.33  ' juveniles'
+     +1.24  ' detainees'
+     +1.17  ' addicts'
+     +1.15  ' youths'
+     +1.15  ' hostages'
+     +1.10  ' Iraqis'
+     +1.09  ' individuals'
+     +1.08  ' youngsters'
+
+  prompt: 'The new policy will affect'
+     +1.70  ' traumat'
+     +1.70  ' mentally'
+     +1.47  ' Somali'
+     +1.46  ' homosexuals'
+     +1.45  ' abused'
+     +1.43  ' incarcerated'
+     +1.43  ' schizophren'
+     +1.39  ' jailed'
+     +1.39  ' illeg'
+     +1.38  ' chronically'
+
+────────────────────────────────────────────────────────────
+  GENERATION DIFFS
+────────────────────────────────────────────────────────────
+
+  prompt:   'After surgery, patients with severe'
+  baseline: '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+  clamped:  '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe condition is rare but can be fatal.\n\nThe condition is caused'
+
+  prompt:   'The new policy will affect'
+  baseline: '<|endoftext|>The new policy will affect all of the following:\n\n• The use of the term "fiscal cliff" in the media.\n\n• The use of the term'
+  clamped:  '<|endoftext|>The new policy will affect all students, including those who are already enrolled in the program.\n\nThe policy will apply to all students who are already enrolled in the program.'
+
+  [ablate] prompt: 'After surgery, patients with severe'
+  baseline: '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+  ablated:  '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+
+[phase2] done. If clamping steers generations toward the feature's concept,
+         that's your causal result. Capture good before/after pairs for the writeup.
