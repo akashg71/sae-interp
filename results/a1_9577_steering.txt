@@ -1,0 +1,116 @@
+Loaded pretrained model gpt2 into HookedTransformer
+
+########################################################################
+# FEATURE 9577
+########################################################################
+
+────────────────────────────────────────────────────────────
+  BOOSTED-TOKEN TABLE  (clamp α=20.0)
+────────────────────────────────────────────────────────────
+
+  prompt: 'The weather today is'
+     +2.03  ' Hait'
+     +1.65  ' Haku'
+     +1.54  ' Haitian'
+     +1.52  ' inmates'
+     +1.51  ' Armen'
+     +1.48  ' Sioux'
+     +1.47  ' Jill'
+     +1.44  ' Becky'
+     +1.44  ' Indones'
+     +1.43  ' Guam'
+
+  prompt: 'I went to the shop to buy'
+     +2.51  ' patients'
+     +2.44  ' grandchildren'
+     +2.44  ' granddaughter'
+     +2.40  ' daughters'
+     +2.40  ' students'
+     +2.36  ' Danielle'
+     +2.35  ' youngsters'
+     +2.35  ' elderly'
+     +2.32  ' children'
+     +2.32  ' Lydia'
+
+  prompt: 'The police arrested the'
+     +1.92  ' unconscious'
+     +1.75  ' starving'
+     +1.68  'approximately'
+     +1.67  ' frail'
+     +1.60  ' terrified'
+     +1.58  ' 760'
+     +1.57  ' 680'
+     +1.55  ' 780'
+     +1.54  ' roughly'
+     +1.53  ' 920'
+
+  prompt: 'After surgery, patients with severe'
+     +3.31  ' juveniles'
+     +3.28  ' inmates'
+     +3.25  ' prisoners'
+     +2.93  ' detainees'
+     +2.80  ' addicts'
+     +2.74  ' youths'
+     +2.73  ' Iraqis'
+     +2.69  ' youngsters'
+     +2.64  ' offenders'
+     +2.62  ' individuals'
+
+  prompt: 'At the border, the officials saw'
+     +2.71  ' 166'
+     +2.67  ' 27'
+     +2.66  ' 183'
+     +2.65  ' 34'
+     +2.65  ' 276'
+     +2.63  ' 28'
+     +2.63  ' 141'
+     +2.63  ' 145'
+     +2.62  ' mentally'
+     +2.60  ' 22'
+
+  prompt: 'The new policy will affect'
+     +2.95  ' traumat'
+     +2.93  ' mentally'
+     +2.57  ' abused'
+     +2.52  ' Somali'
+     +2.49  ' schizophren'
+     +2.45  ' chronically'
+     +2.43  ' incarcerated'
+     +2.40  ' retarded'
+     +2.35  ' impoverished'
+     +2.35  ' homosexuals'
+
+────────────────────────────────────────────────────────────
+  GENERATION DIFFS
+────────────────────────────────────────────────────────────
+
+  prompt:   'The weather today is'
+  baseline: "<|endoftext|>The weather today is a bit different than it was yesterday.\n\nThe weather is still pretty good, but it's getting colder.\n\nThe weather is getting warmer"
+  clamped:  '<|endoftext|>The weather today is a bit different than it was yesterday.\n\nThe weather is still pretty good, but the weather is still pretty bad.\n\nThe weather is'
+
+  prompt:   'I went to the shop to buy'
+  baseline: "<|endoftext|>I went to the shop to buy a new pair of shoes. I was so excited to get them, but I was also so excited to get a pair of shoes that I didn't"
+  clamped:  '<|endoftext|>I went to the shop to buy my first pair of my new baby girl. I was so excited to see her. I was so excited to see her. I was so excited to'
+
+  prompt:   'The police arrested the'
+  baseline: "<|endoftext|>The police arrested the man who allegedly shot and killed a man in the parking lot of a convenience store in the city's downtown on Tuesday.\n\nThe man, who"
+  clamped:  "<|endoftext|>The police arrested the man who was allegedly involved in the shooting of a man in the back of a car in the city's south-west.\n\nThe man,"
+
+  prompt:   'After surgery, patients with severe'
+  baseline: '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+  clamped:  '<|endoftext|>After surgery, patients with severe epilepsy were given a dose of a drug that was known to cause seizures. The patients were then given a placebo. The patients were then given a dose'
+
+  prompt:   'At the border, the officials saw'
+  baseline: '<|endoftext|>At the border, the officials saw a man with a gun and a knife.\n\n"He was carrying a knife and a knife and he was trying to kill us," said Sgt'
+  clamped:  '<|endoftext|>At the border, the officials saw a man with a knife and a woman with a child.\n\nThe man was taken to a hospital where he was pronounced dead.\n\nThe'
+
+  prompt:   'The new policy will affect'
+  baseline: '<|endoftext|>The new policy will affect all of the following:\n\n• The use of the term "fiscal cliff" in the media.\n\n• The use of the term'
+  clamped:  '<|endoftext|>The new policy will affect more than 1,000 people in the state, including more than 1,000 children.\n\nThe policy will affect more than 1,000 people'
+
+  [ablate] prompt: 'The weather today is'
+  baseline: "<|endoftext|>The weather today is a bit different than it was yesterday.\n\nThe weather is still pretty good, but it's getting colder.\n\nThe weather is getting warmer"
+  ablated:  "<|endoftext|>The weather today is a bit different than it was yesterday.\n\nThe weather is still pretty good, but it's getting colder.\n\nThe weather is getting warmer"
+
+[phase2] done. If clamping steers generations toward the feature's concept,
+         that's your causal result. Capture good before/after pairs for the writeup.

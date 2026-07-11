@@ -17,7 +17,7 @@ A unblocks B.
 The current cross-domain claim rests on a single prompt at a single alpha. That's the same
 one-example trap correctly caught for #13481. Fix it with more evidence before rewriting the claim.
 
-- [ ] **A1 — Multi-prompt steering.** Clamp #9577 across ~6 diverse prompts, record top-10 boosted
+- [x] **A1 — Multi-prompt steering.** Clamp #9577 across ~6 diverse prompts, record top-10 boosted
   tokens for each. Suggested set:
   - neutral: `"The weather today is"`
   - everyday: `"I went to the shop to buy"`
@@ -38,7 +38,7 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
   refugee/migration vs other. If firing examples are mostly medical while steering is broad, that
   mismatch must be stated, not papered over.
 
-- [ ] **A4 — Boosted-token audit.** Categorise the clamp-boosted token list into:
+- [x] **A4 — Boosted-token audit.** Categorise the clamp-boosted token list into:
   - (a) confined/institutional — patients, inmates, detainees, prisoners, juveniles, offenders, addicts
   - (b) socially othered but not confined — homosexuals, Iraqis, migrants
   - (c) neither
