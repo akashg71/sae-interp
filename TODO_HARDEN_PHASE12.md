@@ -59,7 +59,7 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
   steers toward a much broader group. Name this as the central puzzle, present the broader-label
   hypothesis as the best current explanation. Don't paper over it.
 
-- [ ] **B3 — Downgrade conclusion to hypothesis.** Present #9577 as a hypothesis with visible
+- [x] **B3 — Downgrade conclusion to hypothesis.** Present #9577 as a hypothesis with visible
   tensions, supported by A1–A4 evidence. State plainly what it does and doesn't establish. Surfacing
   the uncertainty reads as sophisticated, not weak.
 
