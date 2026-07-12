@@ -55,7 +55,7 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
   othered / low-agency groups of people." Frame as a bias / representation finding — safety-relevant
   and more interesting to the target audience.
 
-- [ ] **B2 — State the fire-vs-steer tension openly.** Feature fires on medical/hospital text but
+- [x] **B2 — State the fire-vs-steer tension openly.** Feature fires on medical/hospital text but
   steers toward a much broader group. Name this as the central puzzle, present the broader-label
   hypothesis as the best current explanation. Don't paper over it.
 
