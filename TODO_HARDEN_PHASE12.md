@@ -49,7 +49,7 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
 
 ## Group B — Reframe #9577 as an honest hypothesis
 
-- [ ] **B1 — Replace the label.** Current label ("people under institutional control / confinement
+- [x] **B1 — Replace the label.** Current label ("people under institutional control / confinement
   with limited agency") is a clean human story over messier data — several boosted tokens
   (homosexuals, Iraqis, migrants) aren't confined. Reframe to fit the A4 audit, e.g. "marginalised /
   othered / low-agency groups of people." Frame as a bias / representation finding — safety-relevant
