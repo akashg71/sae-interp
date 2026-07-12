@@ -33,7 +33,7 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
   concept first appears, where it stabilises, and where it degrades into noise. Does the effect hold
   at low alpha (in-distribution), or only at alpha=40 (possibly off-distribution)?
 
-- [ ] **A3 — Max-activating breadth check.** Expand max-activating examples for #9577 from top-10
+- [x] **A3 — Max-activating breadth check.** Expand max-activating examples for #9577 from top-10
   to top 30–50 and categorise contexts. Count: how many are medical vs prison/detention vs
   refugee/migration vs other. If firing examples are mostly medical while steering is broad, that
   mismatch must be stated, not papered over.

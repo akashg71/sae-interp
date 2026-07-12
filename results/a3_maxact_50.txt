@@ -1,0 +1,59 @@
+[phase1] device=mps  hook=blocks.8.hook_resid_pre
+Loaded pretrained model gpt2 into HookedTransformer
+[phase1] SAE d_sae=24576
+[phase1] corpus: 2000 sequences x 128 tokens
+
+=== feature #9577 | density 1.368% | logit-lens top tokens: [' inmates', ' patients', ' prisoners', ' detainees', ' captives', ' children', ' individuals', ' infants'] ===
+   act=  9.85 |  Apollo Hospital in Delhi have saved the life【 of】 a 14-year-old Iraqi student
+   act=  9.58 |  show stent position and luminal diameter【 in】 patients with biliary endoprostheses
+   act=  8.76 |  from the prospective spinal neuroectoderm【 of】 triploid and tetraploid
+   act=  8.66 | -secreting cells in the blood【 of】 patients with AD, patients with psor
+   act=  8.56 |  endoluminal brachytherapy【 in】 comparison to self-expansible metallic
+   act=  8.49 |  end stage renal failure (ESRD)【 in】 50% of patients by 60y.
+   act=  8.10 | Hearing #Giants have expressed interest【 in】 G/T D.J. Fl
+   act=  8.06 | . These camps were used to isolate and【 murder】 Jews, Serbs, Roma (also
+   act=  8.00 |  we reviewed the medical history and pathology records【 of】 23 patients (18 cancer-patients
+   act=  7.93 |  34 patients and by percutaneous technique【 in】 eight patients. Mean catheter life-
+   act=  7.92 |  hypothermia during thoracoscopic surgery【 in】 the lateral decubitus position.\n
+   act=  7.87 |  and behavioral effects of carbamazepine【 in】 children with benign rolandic epilepsy.
+   act=  7.78 |  (UUO) model. Kidneys【 of】 mice subjected to UUO
+   act=  7.71 |  this week shows a Grand Rapids Police Officer【 holding】 the muzzle of his AR-15 rifle
+   act=  7.70 |  training program on aerobic capacity and muscle strength【 of】 adults with hearing loss. Twenty-three
+   act=  7.57 |  Hospital in Delhi have saved the life of【 a】 14-year-old Iraqi student.
+   act=  7.54 | ity of Events Scale (CES)【 to】 women reporting a history of childhood sexual abuse
+   act=  7.48 |  joint pain on gait properties of for【 181】 healthy female older adults (age: 76
+   act=  7.47 | spective review of the urodynamic records【 of】 women attending for assessment between January 1992 and
+   act=  7.24 | X-2 tumors implanted in the muscles【 of】 the lower limbs of rabbits to evaluate the
+   act=  7.21 |  his AR-15 rifle to the head【 of】 an unarmed man who was subdued, in
+   act=  7.19 | prastha Apollo Hospital in Delhi have【 saved】 the life of a 14-year-
+   act=  7.19 |  nationally representative children entering kindergarten in 1998 and【 followed】 through 3rd grade. Food insecurity was
+   act=  7.16 | essed extraocular muscles. Sixteen eyes【 of】 eight rabbits were subjected to conventional 4-
+   act=  7.10 | tha Apollo Hospital in Delhi have saved the【 life】 of a 14-year-old Iraqi
+   act=  7.09 |  the association between regular exercise and depressive symptoms【 in】 community-dwelling older adults by
+   act=  7.09 |  and type of FMF-associated diseases【 in】 children. Files of FMF patients who
+   act=  6.99 |  implanted in the muscles of the lower limbs【 of】 rabbits to evaluate the possibility that this agent
+   act=  6.96 |  investigate the physiologic effects of these procedures【 in】 terms of basal and maximal acid outputs.
+   act=  6.96 | asmic reticulum (SR)【 in】 the soleus muscle. The rats were
+   act=  6.92 | . We reviewed impedance values from medical records【 of】 DBS patients at an academic tertiary
+   act=  6.91 |  in isolated pulmonary and mesenteric arteries【 of】 the rat. Experiments were performed on
+   act=  6.88 |  may influence pulmonary vascular and airway tone【 in】 the neonate. PNEC are
+   act=  6.86 |  differentially expressed genes in placental tissue【 of】 pre-eclampsia: up
+   act=  6.84 |  (PRRS), first reported in 1987【 in】 the USA, is a global infectious disease
+   act=  6.83 |  of uterine position in asympt【omatic】 women with different ethnicity. The angle and
+   act=  6.83 |  gene polymorphisms potentially involved in cardiovascular risk【 in】 the general Mediterranean population. Cross-sectional
+   act=  6.82 | oxyglucose (FDG)【 in】 15 unmedicated schizophrenic patients and
+   act=  6.68 | astha Apollo Hospital in Delhi have saved【 the】 life of a 14-year-old
+   act=  6.67 | sy samples were taken endoscopically【 from】 the antral-mucosa of
+   act=  6.66 | ine (BROMO), on reproductive【 status】 was examined in female frogs, Rana
+   act=  6.65 | ages were isolated from the dialysis fluid【 of】 patients undergoing continuous ambulatory peritoneal
+   act=  6.63 |  subsets were detected in the peripheral blood【 of】 124 ITP patients at different time points
+   act=  6.61 |  use of a prosthesis that is implanted【 into】 one or more of the patient's bones
+   act=  6.60 | , a tibial tray is implanted【 into】 the patient's tibia. A bearing
+   act=  6.57 |  using magnetic resonance imaging in nullipar【ous】, young volunteers from 5 ethnic groups (
+   act=  6.57 | OMO), on reproductive status was examined【 in】 female frogs, Rana temporaria.
+   act=  6.48 |  2004 with the aim of ensure better education【 to】 poor and backward communities in and around Viz
+   act=  6.38 | ration rate (GFR) was examined【 in】 10 Type 1 diabetic patients without clinical ne
+   act=  6.36 |  of the course of bronchial asthma【 of】 various degrees of
+
+[phase1] wrote results/features.md — annotate it, then pick 3-5 features for Phase 2:
+  python scripts/02_causal_intervention.py --features <i> <j> <k>
