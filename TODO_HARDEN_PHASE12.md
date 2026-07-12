@@ -67,7 +67,7 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
 
 ## Group C — Causal-metric precision and methodology transparency
 
-- [ ] **C1 — Define the boost metric.** State exactly what "+7.31 juveniles" means — e.g. "next-token
+- [x] **C1 — Define the boost metric.** State exactly what "+7.31 juveniles" means — e.g. "next-token
   logit difference, clamped minus baseline, at the clamp position." Apply consistently wherever
   boosted tokens appear.
 
