@@ -26,6 +26,10 @@ This is exactly the Pythagorean theorem extended to n dimensions.
 ```
 Squaring removes the sqrt (faster, smoother gradient) and amplifies large errors more.
 
+**Production example:** Spam detection — compute the L2 distance between a message's
+word-frequency vector and the "typical spam" centroid. Small distance = spam-like.
+Squaring means one very-spammy word contributes far more than many mildly-spammy ones.
+
 ---
 
 ### L1 Norm (Manhattan distance)
@@ -48,6 +52,11 @@ error of 10 the same as 10 errors of 1 — no extra urgency for large misses.
 Also: L2 is smooth (differentiable everywhere). L1 has a kink at 0 (non-differentiable),
 which complicates optimization.
 
+**Production example:** Budget allocation with sparsity — in LASSO regression, an L1
+penalty on model weights forces many weights to exactly zero. The model selects a small
+subset of the most useful predictors and ignores the rest entirely. Contrast with L2
+(ridge), which shrinks all weights toward zero but keeps all of them non-zero.
+
 ---
 
 ### L0 "Norm" (not really a norm)
@@ -61,6 +70,10 @@ minimizing L1 tends to drive L0 down too.
 **In this project:** L0 = average number of SAE features active per token.
 - L0 = 1524 → 1524 of 3072 features fire per token (bad, not sparse)
 - L0 = 40 → 40 of 3072 features fire per token (good, interpretable)
+
+**Production example:** Password strength checker — L0 of the vector
+`[has_uppercase, has_lowercase, has_digit, has_special]`. L0=1 is weak (only one
+type used). L0=4 is strong (all types used). You're literally counting non-zeros.
 
 ---
 
@@ -179,6 +192,20 @@ token → embed (768) → block 0 → block 1 → ... → block 11 → unembed �
                    attn+MLP    attn+MLP             attn+MLP
 ```
 
+**The residual connection formula:**
+```
+output = x + F(x)
+```
+Each layer (F) computes a *delta* and adds it to the existing vector. It's a shared
+notepad — layers write amendments, never erase. The stream entering block 8 is the sum
+of all edits from embedding + blocks 0–7.
+
+**Why residual connections prevent vanishing gradients:**
+Without them, gradients must multiply through 12 weight matrices via the chain rule,
+shrinking toward 0 before reaching early layers. The `+x` path is an exact copy,
+so its gradient is always 1 — a free gradient highway that bypasses every layer.
+Even if F(x)'s gradient is near zero, the 1 ensures training signal reaches early layers.
+
 The SAE hooks into this stream at `blocks.8.hook_resid_pre` = the 768-dim vector
 *entering* block 8 (before block 8's attention or MLP have run).
 
@@ -202,6 +229,41 @@ All 12 heads concatenated → 768-dim → W_O → added to residual stream
 
 The `/ √64` prevents the dot products from getting so large that softmax saturates
 (all attention going to one token). This is the "scaled dot-product attention."
+
+---
+
+## MLP Layer Mechanics
+
+Each transformer block has a two-layer feed-forward network (the MLP). In GPT-2-small
+this is the 768→3072→768 bottleneck shown in the architecture table.
+
+```
+Step 1 — expand (W_gate / W_in):   768 → 3072   [4× "magnifying glass"]
+Step 2 — activate (GELU):           non-linearity applied element-wise to 3072 dims
+Step 3 — contract (W_down / W_out): 3072 → 768
+Step 4 — residual add:              x = x + mlp_output
+```
+
+**PyTorch forward pass:**
+```python
+x_expanded = W_gate(x)         # (batch, seq, 768) → (batch, seq, 3072)
+x_gated    = F.gelu(x_expanded) # each of 3072 dims activated selectively
+x_mlp_out  = W_down(x_gated)   # (batch, seq, 3072) → (batch, seq, 768)
+x          = x + x_mlp_out     # amend the residual stream notepad
+```
+
+**Why the 4× expansion?**
+The expanded 3072-dim space gives the model room to represent many more intermediate
+concepts than the 768-dim residual stream. Think of it as scratch paper — the MLP
+works in a wider space, then projects back down to write its summary.
+
+**Why non-linearity (GELU) is critical:**
+Without it, W_gate × W_down collapses to a single linear matrix (matrix multiplication
+is associative). The non-linearity breaks this collapse — it adds "if/then" logic:
+neurons in the 3072-dim space can activate for some inputs and not others, allowing
+the MLP to compute conditional transformations that a single linear layer cannot.
+GELU is a smooth version of ReLU that allows small negative values through, which
+improves gradient flow over hard ReLU.
 
 ---
 
@@ -424,4 +486,4 @@ it changed "girl" → "woman" (less specifically vulnerable).
 
 ---
 
-*This file is updated as new concepts come up. Last updated: 8× run analysis — resampling staircase dynamics, dead_feature_window fix.*
+*This file is updated as new concepts come up. Last updated: Added L0/L1/L2 production examples, residual stream formula (Output = x + F(x)) with vanishing-gradient explanation, MLP layer mechanics section with PyTorch code.*
