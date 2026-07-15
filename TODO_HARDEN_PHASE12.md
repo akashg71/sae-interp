@@ -71,11 +71,11 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
   logit difference, clamped minus baseline, at the clamp position." Apply consistently wherever
   boosted tokens appear.
 
-- [ ] **C2 — Document feature selection.** Say which 20 of the 24,576 features were explored and how
+- [x] **C2 — Document feature selection.** Say which 20 of the 24,576 features were explored and how
   they were chosen (random / by density / hand-picked). One or two sentences. Removes cherry-picking
   doubt.
 
-- [ ] **C3 — Strengthen or caveat ablation.** The framework claims "clamp toward AND ablate away," but
+- [x] **C3 — Strengthen or caveat ablation.** The framework claims "clamp toward AND ablate away," but
   the only ablation evidence is girl→woman. Either add 1–2 more ablation diffs, or explicitly
   acknowledge the ablation signal was weaker than the clamp signal. Both are fine.
 
