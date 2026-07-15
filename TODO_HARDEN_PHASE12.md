@@ -89,10 +89,10 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
 - [x] **D2 — Hedge the density heuristic.** "1–4% healthy, >10% too vague" is stated like a law.
   Mark it as a rule of thumb. Half a sentence.
 
-- [ ] **D3 — Note the better logit-lens tool.** One line: applying the final LayerNorm or a tuned
+- [x] **D3 — Note the better logit-lens tool.** One line: applying the final LayerNorm or a tuned
   lens would refine the logit-lens projection. Shows awareness that a better tool exists.
 
-- [ ] **D4 — DO NOT TRIM the honesty.** Explicitly keep:
+- [x] **D4 — DO NOT TRIM the honesty.** Explicitly keep:
   - the #13481 mislabel correction
   - the "What didn't work" section (#7137)
   - the interpretable-≠-causally-upstream insight
