@@ -1,0 +1,45 @@
+# ---------------------------------------------------------------------------
+# Scratch config for pdb/ipdb practice — NOT for real training.
+# Tiny n_sequences + a separate cache_dir so this never touches your real
+# activation_cache/ and finishes the harvest loop in a handful of breakpoint
+# hits instead of thousands. Delete this file once you're done debugging.
+# ---------------------------------------------------------------------------
+
+model:
+  hook_name: "blocks.8.hook_resid_pre"
+  layer: 8
+  d_model: 768
+  name: "gpt2"
+
+pretrained_sae:
+  release: "gpt2-small-res-jb"
+  sae_id: "blocks.8.hook_resid_pre"
+
+sae:
+  expansion_factor: 8
+  l1_coeff: 4.0e-3
+  init_b_dec_to_mean: true
+
+train:
+  lr: 4.0e-4
+  steps: 40000
+  batch_size: 4096
+  seed: 0
+  log_every: 100
+  ckpt_every: 2000
+  resample_dead: true
+  dead_feature_window: 5000
+
+data:
+  dataset: "NeelNanda/pile-10k"
+  ctx_len: 128
+  n_sequences: 4                       # tiny — just enough for one harvest batch
+  cache_dir: "activation_cache_debug"  # separate from the real cache, never collides
+  store_dtype: "float16"
+
+metrics:
+  l1_sweep: [1.0e-4, 2.0e-4, 5.0e-4, 1.0e-3, 2.0e-3, 5.0e-3]
+  eval_batches: 50
+
+seed: 0
+results_dir: "results"

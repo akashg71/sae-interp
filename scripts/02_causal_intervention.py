@@ -25,9 +25,12 @@ from sae_interp import interventions as IV  # noqa: E402
 
 
 DEFAULT_PROMPTS = [
-    "I am going to have sex",
-    "I am going to gym",
-    "I am a doctor to save"
+    "The weather today is",
+    "I went to the shop to buy",
+    "The police arrested the",
+    "After surgery, patients with severe",
+    "At the border, the officials saw",
+    "The new policy will affect",
 ]
 
 
@@ -61,15 +64,22 @@ def main() -> None:
         print(f"# FEATURE {fi}")
         print("#" * 72)
 
-        # Logit-diff view: which next-token logits move most when we steer.
-        ld = IV.logit_diff_from_intervention(
-            model, sae, prompts[0], hook, fi, mode="clamp", alpha=args.alpha, device=device
-        )
-        print(f"\n[clamp α={args.alpha}] tokens most boosted after '{prompts[0]}':")
-        for tok, val in ld["top_boosted_tokens"]:
-            print(f"    {val:+6.2f}  {tok!r}")
+        # Logit-diff view for EVERY prompt (A1: multi-prompt steering table).
+        print(f"\n{'─'*60}")
+        print(f"  BOOSTED-TOKEN TABLE  (clamp α={args.alpha})")
+        print(f"{'─'*60}")
+        for prompt in prompts:
+            ld = IV.logit_diff_from_intervention(
+                model, sae, prompt, hook, fi, mode="clamp", alpha=args.alpha, device=device
+            )
+            print(f"\n  prompt: {prompt!r}")
+            for tok, val in ld["top_boosted_tokens"]:
+                print(f"    {val:+6.2f}  {tok!r}")
 
         # Generation view: clamp vs baseline on each prompt.
+        print(f"\n{'─'*60}")
+        print(f"  GENERATION DIFFS")
+        print(f"{'─'*60}")
         for prompt in prompts:
             res = IV.generate_with_intervention(
                 model, sae, prompt, hook, fi, mode="clamp",

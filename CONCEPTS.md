@@ -481,8 +481,10 @@ it changed "girl" → "woman" (less specifically vulnerable).
 | 0 — Smoke test | ✅ Done | Stack confirmed working, GPT-2 + SAE loaded |
 | 1 — Feature exploration | ✅ Done | 5 features labelled; #9577 most interesting |
 | 2 — Causal validation | ✅ Done | #9577 proven causal; #13481 mislabelled (corrected) |
-| 3 — Train custom SAE | 🔄 Improving | 8× (L0=1210, VE=1.0); resampling unstable (window too small); rerunning with dead_window=5000, 40k steps |
-| 4 — Frontier evaluation | ⏳ Pending | L0 vs VE sweep across λ values |
+| 1–2 Hardening | ✅ Done | A1–A5 experiments; B1–B3 reframe; C1–C3 precision; D1–D4 polish; writeup re-published |
+| 3 — Train custom SAE | ✅ Done | 8× expansion, λ=4e-3, 40k steps → VE≈1.000, L0≈1161, dead≈13.6%; resampling staircase documented |
+| 4 — Frontier evaluation | ✅ Done | Flat frontier at 3k steps — all λ values L0≈1679; bottleneck is training time not λ |
+| 5 — Improved SAE run | ⏳ Deferred | Needs Colab GPU; target L0 < 200 with dead_window=5000, 40k+ steps |
 
 ---
 

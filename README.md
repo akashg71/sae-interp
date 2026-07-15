@@ -6,14 +6,13 @@ validate** them by clamping/ablating those features and watching the model's beh
 change. The deliverable is a clean repo + a writeup with real metrics (the
 sparsity↔reconstruction frontier and a causal intervention result).
 
-> **Status:** Phases 0–4 complete, run on **Google Colab** (Hugging Face is blocked on
-> the corporate network this was scaffolded on — see
-> [Network / corporate proxy](#network--corporate-proxy-important) below).
-> Phase 1 found interpretable features (`results/features.md`); Phase 2 wired up causal
-> clamp/ablate; Phase 3 trained a custom SAE (d_sae=6144, λ=4e-3, 40k steps →
-> variance-explained ≈ 1.00, L0 ≈ 1161); Phase 4 swept λ for the frontier.
-> **Remaining:** Phase 5 writeup, and driving sparsity down — L0 is currently high
-> (see [Results](#results-phases-14) for the honest read).
+> **Status:** Phases 0–4 complete. Phase 1–2 writeup hardened with A1–A5 validation
+> experiments (multi-prompt steering, alpha sweep, max-activating breadth, boosted-token
+> audit, negative clamping) and published at the personal blog.
+> Phase 3 trained a custom SAE (d_sae=6144, λ=4e-3, 40k steps → VE≈1.00, L0≈1161);
+> Phase 4 showed a flat λ-frontier at 3k steps (sparsity is training-time-limited, not
+> λ-limited). **Remaining:** improved Phase 3 run (deferred — needs Colab GPU) targeting
+> L0 < 200; driving sparsity down is the main open problem.
 
 ---
 
@@ -141,7 +140,7 @@ read the max-activating examples. A few clearly interpretable features (full tab
 | 13481 | 1.5% | frequency / necessity language ("usually", "it may be necessary") |
 | 16836 | 1.1% | pivot / consequence words ("so", "therefore", "thus") |
 | 488 | 1.1% | code structure — imports, headers, indentation |
-| 9577 | 1.4% | confined / vulnerable people (patients, prisoners, detainees) |
+| 9577 | 1.4% | marginalised people as objects of institutional description (hypothesis) — fires on clinical prepositions, steers toward patients/prisoners/homosexuals/Iraqis |
 
 **Phase 2 — causal validation.** `clamp` (force a feature high) and `ablate` (remove its
 contribution) via TransformerLens hooks at the SAE layer, measuring the effect on
