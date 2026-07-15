@@ -86,7 +86,7 @@ one-example trap correctly caught for #13481. Fix it with more evidence before r
 - [x] **D1 — Add a TL;DR lede.** ~3 lines at the top of the post, leading with the #9577 result
   including its caveat. Skimming reader gets the hook immediately; chronological journey stays below.
 
-- [ ] **D2 — Hedge the density heuristic.** "1–4% healthy, >10% too vague" is stated like a law.
+- [x] **D2 — Hedge the density heuristic.** "1–4% healthy, >10% too vague" is stated like a law.
   Mark it as a rule of thumb. Half a sentence.
 
 - [ ] **D3 — Note the better logit-lens tool.** One line: applying the final LayerNorm or a tuned
