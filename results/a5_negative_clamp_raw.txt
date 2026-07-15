@@ -1,0 +1,124 @@
+/Users/akashgupta/Projects/sae-interp/.venv/lib/python3.11/site-packages/transformer_lens/config/hooked_transformer_config.py:354: UserWarning: MPS backend may produce silently incorrect results (PyTorch 2.12.0). Set TRANSFORMERLENS_ALLOW_MPS=1 to suppress this warning. See: https://github.com/TransformerLensOrg/TransformerLens/issues/1178
+  warn_if_mps(self.device)
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 7270.86it/s]
+/Users/akashgupta/Projects/sae-interp/.venv/lib/python3.11/site-packages/sae_lens/saes/sae.py:251: UserWarning: 
+This SAE has non-empty model_from_pretrained_kwargs. 
+For optimal performance, load the model like so:
+model = HookedSAETransformer.from_pretrained_no_processing(..., **cfg.model_from_pretrained_kwargs)
+  warnings.warn(
+Loaded pretrained model gpt2 into HookedTransformer
+
+########################################################################
+# FEATURE 9577
+########################################################################
+
+────────────────────────────────────────────────────────────
+  BOOSTED-TOKEN TABLE  (clamp α=-40.0)
+────────────────────────────────────────────────────────────
+
+  prompt: 'The weather today is'
+     +2.42  'eele'
+     +2.40  'aligned'
+     +2.27  '��極'
+     +2.21  ' resistor'
+     +2.20  'external'
+     +2.19  'ilion'
+     +2.19  ' proxies'
+     +2.19  'chrom'
+     +2.16  'issan'
+     +2.16  ' capacitor'
+
+  prompt: 'I went to the shop to buy'
+     +3.02  'isoft'
+     +2.74  'vertisement'
+     +2.64  '\x04'
+     +2.62  'hower'
+     +2.62  '\x1c'
+     +2.61  'oyal'
+     +2.61  '�'
+     +2.61  'raltar'
+     +2.60  '�'
+     +2.60  '�'
+
+  prompt: 'The police arrested the'
+     +6.12  'dayName'
+     +5.42  'xon'
+     +4.88  '覚醒'
+     +4.80  '��'
+     +4.80  'isoft'
+     +4.75  ' Inspection'
+     +4.72  'inventoryQuantity'
+     +4.65  '��'
+     +4.46  'antry'
+     +4.45  ' WARRANT'
+
+  prompt: 'After surgery, patients with severe'
+     +4.30  ' dealership'
+     +3.56  ' primer'
+     +3.50  ' slic'
+     +3.50  ' dentist'
+     +3.23  ' sunscreen'
+     +3.21  ' Insurance'
+     +3.19  'senal'
+     +3.16  'Downloadha'
+     +3.12  ' curator'
+     +3.07  ' warranty'
+
+  prompt: 'At the border, the officials saw'
+     +3.95  'isoft'
+     +3.72  'eor'
+     +3.62  'unicip'
+     +3.56  'mpire'
+     +3.45  'Solar'
+     +3.40  'orb'
+     +3.40  'ogl'
+     +3.38  'mosp'
+     +3.30  'フォ'
+     +3.29  'orian'
+
+  prompt: 'The new policy will affect'
+     +5.64  'Offline'
+     +5.50  'isoft'
+     +5.30  ' PsyNet'
+     +5.21  'Downloadha'
+     +4.91  'Network'
+     +4.86  'Market'
+     +4.85  ' EntityItem'
+     +4.81  'フォ'
+     +4.62  'dayName'
+     +4.62  'Transaction'
+
+────────────────────────────────────────────────────────────
+  GENERATION DIFFS
+────────────────────────────────────────────────────────────
+
+  prompt:   'The weather today is'
+  baseline: "<|endoftext|>The weather today is a bit different than it was yesterday.\n\nThe weather is still pretty good, but it's getting colder.\n\nThe weather is getting warmer"
+  clamped:  "<|endoftext|>The weather today is pretty good, but it's still a bit of a mystery why the weather is so cloudy.\n\nThe weather is pretty good, but it's"
+
+  prompt:   'I went to the shop to buy'
+  baseline: "<|endoftext|>I went to the shop to buy a new pair of shoes. I was so excited to get them, but I was also so excited to get a pair of shoes that I didn't"
+  clamped:  '<|endoftext|>I went to the shop to buy a new stereo amplifier. I was looking for a good place to store the power supply, and I was looking for a place to store the power supply'
+
+  prompt:   'The police arrested the'
+  baseline: "<|endoftext|>The police arrested the man who allegedly shot and killed a man in the parking lot of a convenience store in the city's downtown on Tuesday.\n\nThe man, who"
+  clamped:  '<|endoftext|>The police arrested the following day, and the police have been looking for a possible criminal investigation into the incident.\n\nThe police said they were looking for a possible criminal'
+
+  prompt:   'After surgery, patients with severe'
+  baseline: '<|endoftext|>After surgery, patients with severe pain and swelling in their legs and feet are able to walk.\n\nThe procedure is done by a doctor who is trained in the use of a'
+  clamped:  '<|endoftext|>After surgery, patients with severe pain and swelling of the lower back are advised to take a pain reliever such as acetaminophen or acetaminophen-containing acetaminophen-containing'
+
+  prompt:   'At the border, the officials saw'
+  baseline: '<|endoftext|>At the border, the officials saw a man with a gun and a knife.\n\n"He was carrying a knife and a knife and he was trying to kill us," said Sgt'
+  clamped:  '<|endoftext|>At the border, the officials saw a bright light of the day, and they were ready to go.\n\n"We\'re going to be in the middle of the night," said'
+
+  prompt:   'The new policy will affect'
+  baseline: '<|endoftext|>The new policy will affect all of the following:\n\n• The use of the term "fiscal cliff" in the media.\n\n• The use of the term'
+  clamped:  '<|endoftext|>The new policy will affect the ability to use the internet to pay for services like Netflix, which is currently blocked by the government.\n\nThe government says it will be able'
+
+  [ablate] prompt: 'The weather today is'
+  baseline: "<|endoftext|>The weather today is a bit different than it was yesterday.\n\nThe weather is still pretty good, but it's getting colder.\n\nThe weather is getting warmer"
+  ablated:  "<|endoftext|>The weather today is a bit different than it was yesterday.\n\nThe weather is still pretty good, but it's getting colder.\n\nThe weather is getting warmer"
+
+[phase2] done. If clamping steers generations toward the feature's concept,
+         that's your causal result. Capture good before/after pairs for the writeup.
