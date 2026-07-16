@@ -40,13 +40,13 @@
 ---
 
 ## Group B — Surface the evidence you already have
-- [ ] **B1 — Show the numbers behind claims.** The post asserts training dynamics but the reader should see the metric that backs each: keep the staircase table (good), and make sure the dead-fraction climb (2.6% → 9.9%) and the resample-event sizes are clearly tied to the L0 plateaus. If any of these live only in logs, pull them into the post or link them in the repo.
+- [x] **B1 — Show the numbers behind claims.** The post asserts training dynamics but the reader should see the metric that backs each: keep the staircase table (good), and make sure the dead-fraction climb (2.6% → 9.9%) and the resample-event sizes are clearly tied to the L0 plateaus. If any of these live only in logs, pull them into the post or link them in the repo.
 
 ---
 
 ## Group C — Small polish
-- [ ] **C1 — Hedge the 4× "too small for specialisation" diagnosis.** Doubling to 8× still left ~19% active, so the non-sparsity is more about the **training regime** than dictionary size. Soften the 4× claim accordingly (or note both factors).
-- [ ] **C2 — Keep the highlights and the honesty.** Do **not** trim: the staircase, the `dead_feature_window` cascade diagnosis, the "what I'd do next" section. These are the load-bearing differentiators.
+- [x] **C1 — Hedge the 4× "too small for specialisation" diagnosis.** Doubling to 8× still left ~19% active, so the non-sparsity is more about the **training regime** than dictionary size. Soften the 4× claim accordingly (or note both factors).
+- [x] **C2 — Keep the highlights and the honesty.** Do **not** trim: the staircase, the `dead_feature_window` cascade diagnosis, the "what I'd do next" section. These are the load-bearing differentiators.
 
 ---
 
