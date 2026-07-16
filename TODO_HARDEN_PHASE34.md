@@ -13,26 +13,26 @@
 
 ## Group A — Framing & correctness (blocking for the LinkedIn post)
 
-- [ ] **A1 — Reframe "VE=1.000 / perfect reconstruction" as a symptom, not a win.**
+- [x] **A1 — Reframe "VE=1.000 / perfect reconstruction" as a symptom, not a win.**
   At L0≈1161 active features in a 768-dim space, near-perfect reconstruction is trivial and *expected* — it signals the SAE is in the low-sparsity regime, not that it's good. State plainly:
   - This is a **mechanics / training-dynamics demonstration, not a feature-discovery result.**
   - Features at L0≈1161 are almost certainly **not interpretable** (unlike Bloom's L0≈40 SAE) — so don't imply this SAE is at feature-quality.
   - VE=1.000 is the **consequence of insufficient sparsity**, not an achievement.
   Current phrasing invites the opposite read; make the caveat explicit wherever VE=1.000 appears (body + status table).
 
-- [ ] **A2 — Resolve the dataset-size / generalization question (this may be the real story).**
+- [x] **A2 — Resolve the dataset-size / generalization question (this may be the real story).**
   256k unique vectors × 40k steps × 4096/batch ≈ ~164M samples ≈ **~640 passes over the same data**. At that many epochs the SAE likely **memorizes** the set, so VE=1.000 may be a **train-set** number with no generalization meaning — and this, more than step count, could explain both the perfect reconstruction and the flat frontier. Answer in the post, from the code:
   - Are activations **streamed fresh** (e.g. SAELens `ActivationsStore`) or is a **fixed 256k set reused** every epoch?
   - Is VE measured on **held-out** activations or on the training set?
   - If it's a fixed set with train-set VE: say so, add held-out VE if feasible, and revise the Phase 4 explanation to name dataset size as a likely confound. Ideally re-run with a larger / streamed set and report held-out VE.
 
-- [ ] **A3 — Soften the flat-frontier explanation to hypothesis + confound.**
+- [x] **A3 — Soften the flat-frontier explanation to hypothesis + confound.**
   The "L1 too small to bite at 3k steps" story fits the low-λ end but **not** λ=5×10⁻³, where the penalty is ~15% of the loss (≈29 vs recon ≈182) and L0 *still* didn't move. Rewrite as: "flat frontier — working hypothesis is the early-training regime, with dataset size (A2) as a likely confound; not a settled explanation." Acknowledge the high-λ point the current explanation doesn't cover.
 
-- [ ] **A4 — Downgrade "the gap to L0=40 is just compute."**
+- [x] **A4 — Downgrade "the gap to L0=40 is just compute."**
   That's a hypothesis, not something the data shows — the flat sweep itself hints sparsity pressure (λ and/or data) may be limiting, not only steps. Change "just compute" to something like "primarily capacity + training, though my own flat sweep suggests sparsity pressure may also be a factor."
 
-- [ ] **A5 — Fix the status-table consistency bug (contradicts the Phase 1–2 post).**
+- [x] **A5 — Fix the status-table consistency bug (contradicts the Phase 1–2 post).**
   The Phase 3–4 status table still says **"cross-domain institutional confinement cluster"** and **"#9577 proven causal."** Both contradict the reframed Phase 1–2 post ("marginalised/othered," "hypothesis, not confirmed") and "proven causal" reintroduces the exact overclaim that was removed. Update the table to match:
   - Phase 1 → "marginalised/othered institutional-object cluster (hypothesis)"
   - Phase 2 → "#9577 shows a consistent causal effect (clamp strong, ablation weaker); one mislabel corrected via evidence"
